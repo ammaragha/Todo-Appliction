@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTodosTable extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateTodosTable extends Migration
      */
     public function up()
     {
-        Schema::create('todos', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->string('name','50');
-            $table->string('description')->nullable();
-            $table->enum('status',['finished','pending'])->default('pending');
-            $table->date('end_date');
-            $table->time('end_time')->nullable();
+            $table->string('name', 200);
+            $table->enum('status', ['finished', 'pending'])->default('pending');
             $table->timestamps();
+
+            $table->foreignId('todo_id')->references('id')->on('todos')->onDelete('cascade');
         });
     }
 
@@ -31,6 +30,6 @@ class CreateTodosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('todos');
+        Schema::dropIfExists('tasks');
     }
 }
