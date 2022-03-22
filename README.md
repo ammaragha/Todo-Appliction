@@ -13,6 +13,7 @@
 ======
 
 #### Archeticture
+###### laravel 8 - php 7.3
 have TODO [name!,description,status,end_date!,end_time] </br>
 each TODO have Many TASKS [name!,status,todo_id!]
 will do full CRUD on both of them
