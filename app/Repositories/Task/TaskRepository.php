@@ -57,7 +57,7 @@ class TaskRepository implements TaskRepositoryInterface
         return $task;
     }
 
-    public function finishAllTasks(int $id): void
+    public function finishAllTasksFor(int $id): void
     {
         $tasks = Task::where('todo_id', $id)->get();
         foreach ($tasks as $task) {
@@ -66,14 +66,19 @@ class TaskRepository implements TaskRepositoryInterface
     }
 
 
-    public function createManyTasks(array $tasks, Todo $todo): void
+    public function createManyTasks(array $tasks, int $id): void
     {
         foreach ($tasks as $task) {
             Task::create([
                 'name' => $task['name'],
                 'status' => "pending",
-                'todo_id' => $todo->id
+                'todo_id' => $id
             ]);
         }
+    }
+
+    public function deleteAllTasksFor(int $id): void
+    {
+        Task::where('todo_id', $id)->delete();
     }
 }

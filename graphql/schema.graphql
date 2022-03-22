@@ -1,0 +1,101 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"Indicates what fields are available at the top level of a query operation."
+type Query {
+    "Find a single todo by an identifying attribute."
+    todo(
+      "Search by primary key."
+      id: ID @eq
+    ): Todo @find
+
+    "List multiple todos."
+    todos: [Todo!]! @paginate
+
+    task(
+      "Search by primary key."
+      id: ID @eq
+    ): Task @find
+
+    "List multiple tasks."
+    tasks: [Task!]! @all
+
+}
+
+"Start Mutation operations"
+type Mutation{
+
+  createTodo(name: String!,description: String,end_date: Date!,end_time: String): Todo @create
+  updateTodo(id: ID!,name:String, description:String, end_date:Date ,end_time:String, status:Status): Todo  @update
+  deleteTodo(id: ID!): Todo @delete
+  
+  createTask(name:String!, todo_id:ID!): Task  @create
+  updateTask(id: ID!,name:String,status:Status): Task  @update
+  deleteTask(id: ID!): Task @delete
+
+}
+
+
+
+"Todo Object"
+type Todo {
+    "Unique primary key."
+    id: ID
+
+    "Non-unique name."
+    name: String!
+
+    "Nullable description"
+    description: String!
+
+    "Enum Status [finished,pending]"
+    status: Status!
+
+    "when todo end date"
+    end_date: Date!
+
+    "when todo end time"
+    end_time: String
+
+    "todo tasks"
+    tasks:[Task] @hasMany
+
+    "When the todo was created."
+    created_at: DateTime!
+
+    "When the todo was last updated."
+    updated_at: DateTime!
+}
+
+
+"Task Object"
+type Task {
+    "Unique primary key."
+    id: ID!
+
+    "Non-unique name."
+    name: String!
+
+    "Enum Status [finished,pending]"
+    status: Status!
+
+    "todo which task belong to"
+    todo_id: Todo
+
+    "todo"
+    todo: Todo @belongsTo
+
+    "When the account was created."
+    created_at: DateTime!
+
+    "When the account was last updated."
+    updated_at: DateTime!
+}
+
+"Enum status"
+enum Status{
+  FINISHED  @enum(value: "finished")
+  PENDING @enum(value: "pending")
+}
+

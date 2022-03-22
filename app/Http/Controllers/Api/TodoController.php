@@ -58,7 +58,7 @@ class TodoController extends Controller
     {
         $data = $this->todoRepo->create($request);
         if (isset($request->tasks) && count($request->tasks) > 0) {
-            (new TaskRepository)->createManyTasks($request->tasks, $data);
+            (new TaskRepository)->createManyTasks($request->tasks, $data->id);
             $data = $this->todoRepo->withTasks($data->id);
         }
         return $this->succWithData($data, 'new todo has been added');
@@ -124,6 +124,7 @@ class TodoController extends Controller
         if (!Todo::find($id))
             return $this->errMsg('not real Todo item');
         $this->todoRepo->delete($id);
+        (new TaskRepository)->deleteAllTasksFor($id);
         return $this->succMsg('Todo item deleted');
     }
 
@@ -137,7 +138,7 @@ class TodoController extends Controller
     {
         $this->todoRepo->finish($request->id);
         $tasks = $this->todoRepo->withTasks($request->id)->tasks;
-        if (count($tasks) > 0) (new TaskRepository)->finishAllTasks($request->id);
+        if (count($tasks) > 0) (new TaskRepository)->finishAllTasksFor($request->id);
         return $this->succMsg('Todo finished');
     }
 }
