@@ -32,5 +32,5 @@ will do full CRUD on both of them
 ======
 
 #### APIS
-<span>you can simple find it by run `php artisan route:list` </span>
+<span>you can simply find it by run `php artisan route:list` </span>
 
