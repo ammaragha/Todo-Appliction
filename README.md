@@ -13,8 +13,8 @@
 ======
 
 #### Archeticture
-have TODO [name!.description,status,end_date!,end_time]
-each TODO have Many TASKS [name!.status,todo_id!]
+have TODO [name!,description,status,end_date!,end_time] </br>
+each TODO have Many TASKS [name!,status,todo_id!]
 will do full CRUD on both of them
 - when TODO finished -> all his tasks finished too
 - when TODO deleted -> all his tasks deleted too
