@@ -34,21 +34,3 @@ will do full CRUD on both of them
 #### APIS
 <span>you can simple find it by run `php artisan route:list` </span>
 
-* +--------+---------------+---------------------+--------------------+--------------------------------------------------------------+-------------------
-| Domain | Method        | URI                 | Name              | Middleware                                                      |
-+--------+---------------+---------------------+--------------------+--------------------------------------------------------------+---------------------
-|        | POST          | api/v1/task         | task.store         | api                                                             |
-|        | GET|HEAD      | api/v1/task         | task.index         | api                                                             |
-|        | POST          | api/v1/task/finish  | task.finish        | api                                                             |
-|        | GET|HEAD      | api/v1/task/{task}  | task.show          | api                                                             |
-|        | PUT|PATCH     | api/v1/task/{task}  | task.update        | api                                                             |
-|        | DELETE        | api/v1/task/{task}  | task.destroy       | api                                                             |
-|        | GET|HEAD      | api/v1/todo         | todo.index         | api                                                             |
-|        | POST          | api/v1/todo         | todo.store         | api                                                             |
-|        | POST          | api/v1/todo/finish  | todo.finish        | api                                                             |
-|        | GET|HEAD      | api/v1/todo/{todo}  | todo.show          | api                                                             |
-|        | PUT|PATCH     | api/v1/todo/{todo}  | todo.update        | api                                                             |
-|        | DELETE        | api/v1/todo/{todo}  | todo.destroy       | api                                                             |
-|        | GET|POST|HEAD | graphql             | graphql            | Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson            |
-|        |               |                     |                    |                                                                 | 
-+--------+---------------+---------------------+--------------------+--------------------------------------------------------------+---------------------
